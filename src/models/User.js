@@ -30,8 +30,11 @@ const UserSchema = new mongoose.Schema({
     default: "user",
   },
 });
-
+/// using save triggers the hook
+/// so it needs to be updated to only be triggered when the
+/// password is updated
 UserSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
