@@ -9,13 +9,14 @@ const app = express();
 ///Rest of the packages
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-
+const fileUpload = require("express-fileupload");
 ///set up database
 const connectDB = require("./db/connect");
 
 /// routers
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
+const mealRouter = require("./routes/mealRoutes");
 
 /// middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -27,6 +28,9 @@ app.use(morgan("tiny"));
 ///express json
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
+
+app.use(express.static("./public"));
+app.use(fileUpload());
 
 ///routes/requests
 app.get("/", (req, res) => {
@@ -40,6 +44,7 @@ app.get("/api/v1", (req, res) => {
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/meals", mealRouter);
 
 ///use middleware...this is placed after the routes
 ///because it runs to see if the routes exist before executing the middleware

@@ -35,10 +35,6 @@ const MealSchema = new mongoose.Schema(
         message: "{VALUE} is not supported",
       },
     },
-    flavors: {
-      type: [String],
-      required: true,
-    },
     featured: {
       type: Boolean,
       default: false,
