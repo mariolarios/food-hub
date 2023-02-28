@@ -18,7 +18,7 @@ const getAllMeals = async (req, res) => {
 const getSingleMeal = async (req, res) => {
   const { id: mealId } = req.params;
 
-  const meal = await Meal.findOne({ _id: mealId });
+  const meal = await Meal.findOne({ _id: mealId }).populate("reviews");
 
   if (!meal) {
     throw new CustomError.NotFoundError(`No meal with id: ${mealId}`);
