@@ -17,6 +17,7 @@ const connectDB = require("./db/connect");
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
 const mealRouter = require("./routes/mealRoutes");
+const reviewRouter = require("./routes/reviewRoutes");
 
 /// middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -45,6 +46,7 @@ app.get("/api/v1", (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/meals", mealRouter);
+app.use("/api/v1/reviews", reviewRouter);
 
 ///use middleware...this is placed after the routes
 ///because it runs to see if the routes exist before executing the middleware
@@ -63,3 +65,5 @@ const start = async () => {
 };
 
 start();
+
+

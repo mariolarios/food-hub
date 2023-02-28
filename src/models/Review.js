@@ -29,10 +29,12 @@ const ReviewSchema = mongoose.Schema(
       required: true,
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 /// set up index for both the user and the meal
 /// sets up that the user can only leave one review per meal
 ReviewSchema.index({ product: 1, user: 1 }, { unique: true });
+
+
 
 module.exports = mongoose.model("Review", ReviewSchema);

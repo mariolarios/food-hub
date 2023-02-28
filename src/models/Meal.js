@@ -57,7 +57,18 @@ const MealSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+MealSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "meal",
+  justOne: false,
+});
+
+MealSchema.pre("remove", async function (next) {
+  await this.model("Review").deleteMany({ meal: this._id });
+});
 
 module.exports = mongoose.model("Meal", MealSchema);
