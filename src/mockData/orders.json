@@ -6,7 +6,7 @@
       {
         "name": "pepperoni pizza",
         "price": 999,
-        "image": "https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160",
+        "image": "/uploads/example.jpeg",
         "amount": 4,
         "meal": "6126ad3424d2bd09165a68c8"
       }
@@ -19,14 +19,14 @@
       {
         "name": "tacos",
         "price": 799,
-        "image": "https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160",
+        "image": "/uploads/example.jpeg",
         "amount": 3,
         "meal": "6126ad3424d2bd09165a68c7"
       },
       {
         "name": "cheese burger",
         "price": 1099,
-        "image": "https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160",
+        "image": "/uploads/example.jpeg",
         "amount": 1,
         "meal": "6126ad3424d2bd09165a68c4"
       }
