@@ -33,8 +33,37 @@ const ReviewSchema = mongoose.Schema(
 );
 /// set up index for both the user and the meal
 /// sets up that the user can only leave one review per meal
-ReviewSchema.index({ product: 1, user: 1 }, { unique: true });
+ReviewSchema.index({ meal: 1, user: 1 }, { unique: true });
 
+ReviewSchema.statics.calculateAverageRating = async function (mealId) {
+  const result = await this.aggregate([
+    { $match: { meal: mealId } },
+    {
+      $group: {
+        _id: null,
+        averageRating: { $avg: "$rating" },
+        numOfReviews: { $sum: 1 },
+      },
+    },
+  ]);
+  try {
+    await this.model("Meal").findOneAndUpdate(
+      { _id: mealId },
+      {
+        averageRating: Math.ceil(result[0]?.averageRating || 0),
+        numOfReviews: result[0]?.numOfReviews || 0,
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
+ReviewSchema.post("save", async function () {
+  await this.constructor.calculateAverageRating(this.meal);
+});
 
+ReviewSchema.post("remove", async function () {
+  await this.constructor.calculateAverageRating(this.meal);
+});
 module.exports = mongoose.model("Review", ReviewSchema);
