@@ -14,7 +14,7 @@ const rateLimiter = require("express-rate-limit");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
-const ejs = require("ejs");
+
 ///set up database
 const connectDB = require("./db/connect");
 
