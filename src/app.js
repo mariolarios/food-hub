@@ -14,7 +14,7 @@ const rateLimiter = require("express-rate-limit");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
-
+const ejs = require("ejs");
 ///set up database
 const connectDB = require("./db/connect");
 
@@ -46,8 +46,12 @@ app.use(mongoSanitize());
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 
-app.use(express.static("./public"));
+app.use(express.static("public"));
 app.use(fileUpload());
+
+app.get("/", (req, res) => {
+  res.send("food-hub");
+});
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
